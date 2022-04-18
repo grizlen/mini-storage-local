@@ -48,7 +48,12 @@ public class JournalViewController implements ContentViewController {
     @Override
     public ViewCommand[] getCommands() {
         return new ViewCommand[] {
-                ViewCommand.create("Поступления", () -> mainViewController.setContent(DocPurchaseViewController.class))
+                ViewCommand.create("Поступления", this::newPurchase)
         };
+    }
+
+    private void newPurchase() {
+        DocPurchaseViewController docPurchaseViewController = mainViewController.setContent(DocPurchaseViewController.class);
+        docPurchaseViewController.setModel(new Document());
     }
 }
