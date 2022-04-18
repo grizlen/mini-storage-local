@@ -4,13 +4,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import ru.geekbrains.ms.models.DocItem;
+import ru.geekbrains.ms.models.DocPurchase;
 import ru.geekbrains.ms.models.Document;
 
 import javax.annotation.PostConstruct;
 
 @Controller
 @Slf4j
-public class DocPurchaseViewController extends DocumentViewController<Document, DocItem> {
+public class DocPurchaseViewController extends DocumentViewController<DocPurchase, DocItem> {
 
     @Autowired
     MainViewController mainViewController;
@@ -39,10 +40,10 @@ public class DocPurchaseViewController extends DocumentViewController<Document, 
     }
 
     @Override
-    public void setModel(Document model) {
+    public void setModel(DocPurchase model) {
         super.setModel(model);
         if (model == null) {
-            setModel(new Document());
+            setModel(new DocPurchase());
         } else {
             lblId.setText("№ " + model.getId());
             lblDate.setText("от " + model.getDate());

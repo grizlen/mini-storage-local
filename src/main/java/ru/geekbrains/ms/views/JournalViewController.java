@@ -6,6 +6,7 @@ import javafx.scene.layout.VBox;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import ru.geekbrains.ms.models.DocPurchase;
 import ru.geekbrains.ms.models.Document;
 
 import javax.annotation.PostConstruct;
@@ -54,6 +55,6 @@ public class JournalViewController implements ContentViewController {
 
     private void newPurchase() {
         DocPurchaseViewController docPurchaseViewController = mainViewController.setContent(DocPurchaseViewController.class);
-        docPurchaseViewController.setModel(new Document());
+        docPurchaseViewController.setModel(null);
     }
 }
