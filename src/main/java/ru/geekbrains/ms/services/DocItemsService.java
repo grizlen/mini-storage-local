@@ -19,4 +19,12 @@ public class DocItemsService {
                 .map(entity -> DocItem.fromEntity(entity))
                 .toList();
     }
+
+    public void deleteByDoc(Long docId) {
+        docItemsRepository.deleteAllByDocId(docId);
+    }
+
+    public void saveItems(List<DocItemEntity> itemEntities) {
+        docItemsRepository.saveAll(itemEntities);
+    }
 }

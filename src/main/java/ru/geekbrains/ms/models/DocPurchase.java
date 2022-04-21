@@ -23,7 +23,7 @@ public class DocPurchase extends Document {
         list.forEach(this::addItem);
     }
 
-    private void addItem(DocItem item) {
+    public void addItem(DocItem item) {
         items.add(item);
     }
 

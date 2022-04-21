@@ -65,7 +65,7 @@ public class JournalViewController implements ContentViewController {
     @Override
     public ViewCommand[] getCommands() {
         return new ViewCommand[] {
-                ViewCommand.create("Поступления", this::newPurchase)
+                ViewCommand.create("Поступление", this::newPurchase)
         };
     }
 

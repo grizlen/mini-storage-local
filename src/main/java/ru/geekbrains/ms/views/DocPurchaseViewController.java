@@ -52,7 +52,29 @@ public class DocPurchaseViewController extends DocumentViewController<DocPurchas
         } else {
             lblId.setText("№ " + model.getId());
             lblDate.setText("от " + model.getDate());
+            loadItems();
         }
+    }
+
+    private void loadItems() {
+        itemBox.getItems().clear();
+        itemBox.getItems().addAll(model.getItems());
+    }
+
+    @Override
+    protected void onCreateHeader() {
+
+    }
+
+    @Override
+    protected void onCreateFooter() {
+        footerBox.getChildren().add(ViewCommand.create("+", this::addItem).asButton());
+    }
+
+    private void addItem() {
+        DocItem item = new DocItem();
+        model.addItem(item);
+        loadItems();
     }
 
     private void save() {

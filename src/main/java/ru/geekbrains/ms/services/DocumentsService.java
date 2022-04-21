@@ -20,4 +20,13 @@ public class DocumentsService {
                         criteriaBuilder.like(root.get("type"), Document.PURCHASE));
         return documentsRepository.findAll(spec);
     }
+
+    public void save(Document doc) {
+        DocumentEntity entity = new DocumentEntity();
+        entity.setId(doc.getId());
+        entity.setDate(doc.getDate());
+        entity.setType(doc.getType());
+        entity = documentsRepository.save(entity);
+        doc.setId(entity.getId());
+    }
 }

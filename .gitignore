@@ -4,3 +4,4 @@ target/*
 /mvnw.cmd
 /mini-storage-local.iml
 /HELP.md
+/db/

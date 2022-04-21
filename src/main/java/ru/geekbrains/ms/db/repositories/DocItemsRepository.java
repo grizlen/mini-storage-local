@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface DocItemsRepository extends JpaRepository<DocItemEntity, Long> {
     List<DocItemEntity> findAllByDocId(Long docId);
+
+    void deleteAllByDocId(Long docId);
 }

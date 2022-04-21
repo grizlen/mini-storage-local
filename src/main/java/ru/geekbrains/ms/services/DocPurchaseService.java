@@ -3,6 +3,7 @@ package ru.geekbrains.ms.services;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.geekbrains.ms.db.entities.DocItemEntity;
 import ru.geekbrains.ms.db.entities.DocumentEntity;
 import ru.geekbrains.ms.db.repositories.DocPurchaseRepository;
 import ru.geekbrains.ms.models.DocPurchase;
@@ -32,5 +33,19 @@ public class DocPurchaseService {
 
     public void save(DocPurchase doc) {
         log.info("save {}", doc);
+        if (doc.getId() == null) {
+            documentsService.save(doc);
+        } else {
+            documentsService.save(doc);
+        }
+        final long id = doc.getId();
+        docItemsService.deleteByDoc(id);
+        List<DocItemEntity> itemEntities = doc.getItems().stream().map(item -> {
+                    DocItemEntity entity = new DocItemEntity();
+                    entity.setDocId(id);
+                    return entity;
+                })
+                .toList();
+        docItemsService.saveItems(itemEntities);
     }
 }
