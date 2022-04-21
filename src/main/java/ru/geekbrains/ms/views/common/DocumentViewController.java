@@ -1,4 +1,4 @@
-package ru.geekbrains.ms.views;
+package ru.geekbrains.ms.views.common;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -6,8 +6,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import ru.geekbrains.ms.models.Document;
+import ru.geekbrains.ms.views.common.ContentViewController;
 
-public abstract class DocumentViewController<D extends Document, I> implements ContentViewController{
+public abstract class DocumentViewController<D extends Document, I> implements ContentViewController {
 
     private VBox vBox;
     protected D model;

@@ -8,7 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import ru.geekbrains.ms.views.JournalViewController;
-import ru.geekbrains.ms.views.MainViewController;
+import ru.geekbrains.ms.views.common.MainViewController;
 
 @SpringBootApplication
 public class MSLocalFX extends Application {

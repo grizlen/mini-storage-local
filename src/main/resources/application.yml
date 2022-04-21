@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:h2:file:./db/server/demodb
+    username: sa
+    password:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true

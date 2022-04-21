@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import ru.geekbrains.ms.models.DocPurchase;
 import ru.geekbrains.ms.models.Document;
+import ru.geekbrains.ms.services.DocumentsFacade;
+import ru.geekbrains.ms.views.common.ContentViewController;
+import ru.geekbrains.ms.views.common.MainViewController;
+import ru.geekbrains.ms.views.common.ViewCommand;
 
 import javax.annotation.PostConstruct;
 
@@ -17,8 +21,10 @@ public class JournalViewController implements ContentViewController {
 
     @Autowired
     private MainViewController mainViewController;
+    @Autowired
+    private DocumentsFacade documentsFacade;
     private VBox vBox;
-    private ListView<Document> lvDocuments = new ListView<>();
+    private final ListView<Document> lvDocuments = new ListView<>();
 
     @PostConstruct
     private void init() {
@@ -26,6 +32,14 @@ public class JournalViewController implements ContentViewController {
         mainViewController.registerView(this);
     }
 
+    public JournalViewController() {
+        lvDocuments.setOnMouseClicked(mouseEvent -> {
+            Document item = lvDocuments.getSelectionModel().getSelectedItem();
+            if (item != null && mouseEvent.getClickCount() == 2) {
+                mainViewController.setContent(DocPurchaseViewController.class).setModel((DocPurchase) item);
+            }
+        });
+    }
     @Override
     public VBox getView() {
         if (vBox == null) {
@@ -39,6 +53,8 @@ public class JournalViewController implements ContentViewController {
     @Override
     public void open() {
         log.info("JournalViewController open");
+        lvDocuments.getItems().clear();
+        lvDocuments.getItems().addAll(documentsFacade.getAll());
     }
 
     @Override
@@ -54,7 +70,6 @@ public class JournalViewController implements ContentViewController {
     }
 
     private void newPurchase() {
-        DocPurchaseViewController docPurchaseViewController = mainViewController.setContent(DocPurchaseViewController.class);
-        docPurchaseViewController.setModel(null);
+        mainViewController.setContent(DocPurchaseViewController.class).setModel(null);
     }
 }

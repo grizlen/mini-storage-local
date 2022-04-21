@@ -5,7 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import ru.geekbrains.ms.models.DocItem;
 import ru.geekbrains.ms.models.DocPurchase;
-import ru.geekbrains.ms.models.Document;
+import ru.geekbrains.ms.services.DocumentsFacade;
+import ru.geekbrains.ms.views.common.DocumentViewController;
+import ru.geekbrains.ms.views.common.MainViewController;
+import ru.geekbrains.ms.views.common.ViewCommand;
 
 import javax.annotation.PostConstruct;
 
@@ -15,6 +18,8 @@ public class DocPurchaseViewController extends DocumentViewController<DocPurchas
 
     @Autowired
     MainViewController mainViewController;
+    @Autowired
+    DocumentsFacade documentsFacade;
 
     @PostConstruct
     private void init() {
@@ -52,6 +57,7 @@ public class DocPurchaseViewController extends DocumentViewController<DocPurchas
 
     private void save() {
         log.info("save");
+        documentsFacade.savePurchase(model);
         journal();
     }
 
