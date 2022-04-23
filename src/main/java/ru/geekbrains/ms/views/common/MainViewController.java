@@ -1,4 +1,4 @@
-package ru.geekbrains.ms.views;
+package ru.geekbrains.ms.views.common;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

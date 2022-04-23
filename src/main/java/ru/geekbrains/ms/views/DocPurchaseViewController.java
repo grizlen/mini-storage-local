@@ -4,16 +4,22 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import ru.geekbrains.ms.models.DocItem;
-import ru.geekbrains.ms.models.Document;
+import ru.geekbrains.ms.models.DocPurchase;
+import ru.geekbrains.ms.services.DocumentsFacade;
+import ru.geekbrains.ms.views.common.DocumentViewController;
+import ru.geekbrains.ms.views.common.MainViewController;
+import ru.geekbrains.ms.views.common.ViewCommand;
 
 import javax.annotation.PostConstruct;
 
 @Controller
 @Slf4j
-public class DocPurchaseViewController extends DocumentViewController<Document, DocItem> {
+public class DocPurchaseViewController extends DocumentViewController<DocPurchase, DocItem> {
 
     @Autowired
     MainViewController mainViewController;
+    @Autowired
+    DocumentsFacade documentsFacade;
 
     @PostConstruct
     private void init() {
@@ -39,18 +45,41 @@ public class DocPurchaseViewController extends DocumentViewController<Document, 
     }
 
     @Override
-    public void setModel(Document model) {
+    public void setModel(DocPurchase model) {
         super.setModel(model);
         if (model == null) {
-            setModel(new Document());
+            setModel(new DocPurchase());
         } else {
             lblId.setText("№ " + model.getId());
             lblDate.setText("от " + model.getDate());
+            loadItems();
         }
+    }
+
+    private void loadItems() {
+        itemBox.getItems().clear();
+        itemBox.getItems().addAll(model.getItems());
+    }
+
+    @Override
+    protected void onCreateHeader() {
+
+    }
+
+    @Override
+    protected void onCreateFooter() {
+        footerBox.getChildren().add(ViewCommand.create("+", this::addItem).asButton());
+    }
+
+    private void addItem() {
+        DocItem item = new DocItem();
+        model.addItem(item);
+        loadItems();
     }
 
     private void save() {
         log.info("save");
+        documentsFacade.savePurchase(model);
         journal();
     }
 
